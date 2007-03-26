@@ -17,6 +17,9 @@ class LanguageRedirectPage < Page
   end
   
   protected
+    def config
+      Hash[*render_part(:config).split(/[\n:]/)]
+    end
   
     def languages
       langs = (@request.env["HTTP_ACCEPT_LANGUAGE"] || "").scan(/[^,\s]+/)
