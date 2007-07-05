@@ -18,7 +18,9 @@ class LanguageRedirectPage < Page
   
   protected
     def config
-      Hash[*render_part(:config).split(/[\n:]/)]
+      map = Hash[*render_part(:config).split(/[\n:]/)]
+      map.each_pair {|k, v| v.chomp!; v.strip!}
+      map
     end
   
     def languages

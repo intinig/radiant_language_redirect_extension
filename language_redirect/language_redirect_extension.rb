@@ -1,5 +1,5 @@
 class LanguageRedirectExtension < Radiant::Extension
-  version "0.2"
+  version "0.2.1"
   description "Port of the original Language Redirect Behavior"
   url "http://medlar.it"
 
