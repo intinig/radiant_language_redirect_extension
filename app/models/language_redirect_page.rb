@@ -1,5 +1,5 @@
 class LanguageRedirectPage < Page
-  
+
   def headers
     {
       'Status' => "302 Found",
@@ -7,46 +7,57 @@ class LanguageRedirectPage < Page
       'Vary' => "Accept-Language"
     }
   end
-  
+
   def render
     "<html><body>302 Found</body></html>"
   end
-  
+
   def cache?
     false
   end
   
+  def find_by_url(url, live=true, clean=true)
+    found = super
+    if (found.nil? || found.is_a?(FileNotFoundPage)) && 
+      location_map.values.all? {|target| clean_url(url) !~ Regexp.new(target) }
+      self
+    else
+      found
+    end
+  end
+
   protected
     def config
-      map = Hash[*render_part(:config).split(/[\n:]/)]
-      map.each_pair {|k, v| v.chomp!; v.strip!}
-      map
+      YAML.load(render_part('config'))
     end
-  
+
     def languages
-      langs = (@request.env["HTTP_ACCEPT_LANGUAGE"] || "").scan(/[^,\s]+/)
-      q = lambda { |str| /;q=/ =~ str ? Float($') : 1 }
-      langs = langs.collect do |ele|
-        [q.call(ele), ele.split(/;/)[0].downcase]
-      end.sort { |l, r| r[0] <=> l[0] }.collect { |ele| ele[1] }
-      langs
+      langs = (@request.env["HTTP_ACCEPT_LANGUAGE"] || "").split(/[,\s]+/)
+      langs_with_weights = langs.map do |ele|
+        both = ele.split(/;q=/)
+        lang = both[0].split('-').first
+        weight = both[1] ? Float(both[1]) : 1
+        [-weight, lang]
+      end.sort_by(&:first).map(&:last)
     end
-  
+
     def location
-      path = nil
-      languages.find do |lang|
-        path = location_map[lang[0..1]]
+      path = languages.find do |lang|
+        location_map[lang]
       end
       path ||= location_map["*"] || '/en/'
+      path += request.request_uri
+      path.gsub!(%r{([^:])//}, '\1/')
       if path =~ %r{[:][/][/]}
         path
       else
+        path.sub!(%r{^([^/])}, '/\1')
         @request.protocol + @request.host_with_port + path
       end
     end
-    
+
     def location_map
       @location_map ||= config
     end
-  
+
 end
