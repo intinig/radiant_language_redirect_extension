@@ -15,6 +15,10 @@ class LanguageRedirectPage < Page
   def cache?
     false
   end
+
+  def response_code
+    302
+  end
   
   def find_by_url(url, live=true, clean=true)
     found = super

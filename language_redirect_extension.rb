@@ -4,25 +4,8 @@ class LanguageRedirectExtension < Radiant::Extension
   url "http://medlar.it"
 
   def activate
+    Page.send :include, LanguageRedirectTags
     LanguageRedirectPage
-    Page.class_eval do
-      tag 'breadcrumbs' do |tag|
-        page = tag.locals.page
-        breadcrumbs = [tag.render('breadcrumb')]
-        nolinks = (tag.attr['nolinks'] == 'true')
-        # Remove LanguageRedirect pages from the hierarchy (preferably the root)
-        page.ancestors.reject {|p| p.is_a?(LanguageRedirectPage) }.each do |ancestor|
-          tag.locals.page = ancestor
-          if nolinks
-            breadcrumbs.unshift tag.render('breadcrumb')
-          else
-            breadcrumbs.unshift %{<a href="#{tag.render('url')}">#{tag.render('breadcrumb')}</a>}
-          end
-        end
-        separator = tag.attr['separator'] || ' &gt; '
-        breadcrumbs.join(separator)
-      end
-    end
   end
   
   def deactivate
