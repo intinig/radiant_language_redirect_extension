@@ -10,7 +10,7 @@ module LanguageRedirectTags
     <pre><code><r:if_language code="language" >...</r:if_language></code></pre>
   }
   tag 'if_language' do |tag|
-    tag.expand unless tag.attr['code'] == current_language
+    tag.expand if tag.attr['code'] == current_language
   end
 
   desc %{
@@ -20,7 +20,7 @@ module LanguageRedirectTags
     <pre><code><r:unless_language code="language" >...</r:unless_language></code></pre>
   }
   tag 'unless_language' do |tag|
-    tag.expand if tag.attr['code'] == current_language
+    tag.expand unless tag.attr['code'] == current_language
   end
 
   desc %{
