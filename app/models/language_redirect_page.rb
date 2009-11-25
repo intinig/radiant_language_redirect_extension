@@ -46,9 +46,7 @@ class LanguageRedirectPage < Page
     end
 
     def location
-      path = languages.find do |lang|
-        location_map[lang]
-      end
+      path = location_map[languages.find { |lang| location_map[lang] }]
       path ||= location_map["*"] || '/en/'
       path += request.request_uri
       path.gsub!(%r{([^:])//}, '\1/')
