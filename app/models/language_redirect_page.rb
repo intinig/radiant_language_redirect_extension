@@ -2,14 +2,14 @@ class LanguageRedirectPage < Page
 
   def headers
     {
-      'Status' => "302 Found",
+      'Status' => "301 Redirect",
       'Location' => location,
       'Vary' => "Accept-Language"
     }
   end
 
   def render
-    "<html><body>302 Found</body></html>"
+    "<html><body>301 Redirect</body></html>"
   end
 
   def cache?
