@@ -15,6 +15,10 @@ class LanguageRedirectPage < Page
   def cache?
     false
   end
+
+  def response_code
+    302
+  end
   
   def find_by_url(url, live=true, clean=true)
     found = super
@@ -42,9 +46,7 @@ class LanguageRedirectPage < Page
     end
 
     def location
-      path = languages.find do |lang|
-        location_map[lang]
-      end
+      path = location_map[languages.find { |lang| location_map[lang] }]
       path ||= location_map["*"] || '/en/'
       path += request.request_uri
       path.gsub!(%r{([^:])//}, '\1/')
