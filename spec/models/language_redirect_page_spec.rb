@@ -49,6 +49,8 @@ describe "LanguageRedirectPage" do
 
     before :each do
       @page = pages(:home)
+      @page.slug = "freight"
+      @page.save!
       @page.parts.create!(:name => 'config', :content => {'de' => '/parent/', 'es' => '/es/', '*' => '/en/'}.to_yaml)
     end
 

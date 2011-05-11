@@ -7,8 +7,5 @@ class LanguageRedirectExtension < Radiant::Extension
     Page.send :include, LanguageRedirectTags
     LanguageRedirectPage
   end
-  
-  def deactivate
-  end
-    
+
 end

@@ -17,7 +17,7 @@ class LanguageRedirectPage < Page
   end
 
   def response_code
-    302
+    301
   end
   
   def find_by_url(url, live=true, clean=true)
