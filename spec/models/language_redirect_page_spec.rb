@@ -8,6 +8,7 @@ describe "LanguageRedirectPage" do
     @page = LanguageRedirectPage.new
     @page.stub!(:url).and_return('/')
     @page.parts.build(:name => 'config', :content => {'de' => '/de/', 'es' => '/es/', '*' => '/en/'}.to_yaml)
+    @page.parts[0].draft_content = @page.parts[0].content if defined? ConcurrentDraft
     @request.request_uri = '/'
   end
 
