@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../spec_helper"
+require 'spec_helper'
 
 describe "LanguageRedirectPage" do
 
@@ -56,11 +56,11 @@ describe "LanguageRedirectPage" do
     end
 
     it "should return self if the URL doesn't match any of the redirect locations" do
-      Page.find_by_url('/freight/').should == @page
+      Page.find_by_path('/freight/').should == @page
     end
 
     it "should return the found page or nil if the URL matches a redirect location" do
-      Page.find_by_url('/en/freight/').should_not == @page
+      Page.find_by_path('/en/freight/').should_not == @page
     end
   end
 end

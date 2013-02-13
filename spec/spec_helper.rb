@@ -11,11 +11,10 @@ unless defined? RADIANT_ROOT
 end
 require "#{RADIANT_ROOT}/spec/spec_helper"
 
-# if File.directory?(File.dirname(__FILE__) + "/scenarios")
-#   Scenario.load_paths.unshift File.dirname(__FILE__) + "/scenarios"
-# end
-if File.directory?(File.dirname(__FILE__) + "/datasets")
-  Dataset::Resolver.default << (File.dirname(__FILE__) + "/datasets")
+Dataset::Resolver.default << (File.dirname(__FILE__) + "/datasets")
+Dataset::Resolver.default << (SnippetsExtension.root + "/spec/datasets") if defined?(SnippetsExtension)
+if File.directory?(File.dirname(__FILE__) + "/matchers")
+  Dir[File.dirname(__FILE__) + "/matchers/*.rb"].each {|file| require file }
 end
 if File.directory?(File.dirname(__FILE__) + "/matchers")
   Dir[File.dirname(__FILE__) + "/matchers/*.rb"].each {|file| require file }
