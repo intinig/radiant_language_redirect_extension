@@ -1,3 +1,20 @@
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options    
+    gem.name = "radiant-language_redirect-extension"
+    gem.homepage = "https://github.com/avonderluft/radiant-language_redirect-extension"
+    gem.license = "MIT"
+    gem.summary = %Q{Language Redirect Extension for Radiant CMS}
+    gem.description = %Q{Redirects to the appropriate language section based on the content encoding preferred by the Web browser.}
+    gem.email = "avonderluft@avlux.net"
+    gem.authors = ["Giovanni Intini", "Andrew vonderLuft"]
+    gem.add_dependency 'radiant', ">=1.1.3"
+  end
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. This is only required if you plan to package language_redirect as a gem."
+end
+
 # I think this is the one that should be moved to the extension Rakefile template
 
 # In rails 1.2, plugins aren't available in the path until they're loaded.
