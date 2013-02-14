@@ -29,6 +29,7 @@ class LanguageRedirectPage < Page
       found
     end
   end
+  alias find_by_path find_by_url
 
   protected
     def config
