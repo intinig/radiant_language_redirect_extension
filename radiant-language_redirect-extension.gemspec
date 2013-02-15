@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "radiant-language_redirect-extension"
-  s.version = "1.0.0"
+  s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Giovanni Intini", "Andrew vonderLuft"]
-  s.date = "2013-02-14"
+  s.date = "2013-02-15"
   s.description = "Redirects to the appropriate language section based on the content encoding preferred by the Web browser."
   s.email = "avonderluft@avlux.net"
   s.extra_rdoc_files = [
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
     "language_redirect_extension.rb",
     "lib/language_redirect_tags.rb",
     "lib/tasks/language_redirect_extension_tasks.rake",
+    "radiant-language_redirect-extension.gemspec",
     "spec/datasets/language_redirect_dataset.rb",
     "spec/models/language_redirect_page_spec.rb",
     "spec/models/tags_spec.rb",
@@ -32,7 +33,7 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/avonderluft/radiant-language_redirect-extension"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.25"
+  s.rubygems_version = "1.8.24"
   s.summary = "Language Redirect Extension for Radiant CMS"
 
   if s.respond_to? :specification_version then
