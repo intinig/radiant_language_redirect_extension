@@ -2,14 +2,14 @@ class LanguageRedirectPage < Page
 
   def headers
     {
-      'Status' => "302 Found",
+      'Status' => "301 Redirect",
       'Location' => location,
       'Vary' => "Accept-Language"
     }
   end
 
   def render
-    "<html><body>302 Found</body></html>"
+    "<html><body>301 Redirect</body></html>"
   end
 
   def cache?
@@ -17,7 +17,7 @@ class LanguageRedirectPage < Page
   end
 
   def response_code
-    302
+    301
   end
   
   def find_by_url(url, live=true, clean=true)
@@ -29,6 +29,7 @@ class LanguageRedirectPage < Page
       found
     end
   end
+  alias find_by_path find_by_url
 
   protected
     def config

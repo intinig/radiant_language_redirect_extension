@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../spec_helper"
+require 'spec_helper'
 
 describe "LanguageRedirectPage" do
 
@@ -8,6 +8,7 @@ describe "LanguageRedirectPage" do
     @page = LanguageRedirectPage.new
     @page.stub!(:url).and_return('/')
     @page.parts.build(:name => 'config', :content => {'de' => '/de/', 'es' => '/es/', '*' => '/en/'}.to_yaml)
+    @page.parts[0].draft_content = @page.parts[0].content if defined? ConcurrentDraft
     @request.request_uri = '/'
   end
 
@@ -49,15 +50,17 @@ describe "LanguageRedirectPage" do
 
     before :each do
       @page = pages(:home)
+      @page.slug = "freight"
+      @page.save!
       @page.parts.create!(:name => 'config', :content => {'de' => '/parent/', 'es' => '/es/', '*' => '/en/'}.to_yaml)
     end
 
     it "should return self if the URL doesn't match any of the redirect locations" do
-      Page.find_by_url('/freight/').should == @page
+      Page.find_by_path('/freight/').should == @page
     end
 
     it "should return the found page or nil if the URL matches a redirect location" do
-      Page.find_by_url('/en/freight/').should_not == @page
+      Page.find_by_path('/en/freight/').should_not == @page
     end
   end
 end

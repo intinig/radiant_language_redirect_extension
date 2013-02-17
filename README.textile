@@ -1,0 +1,52 @@
+h1. Language Redirect
+
+Redirects to the appropriate language section based on the content encoding preferred by the Web browser.
+
+h2. Version History
+
+* 2/2013 - Radiant 1.1.x compatible, fix deprecations, gemify
+* 5/2011 - Radiant 1.0 compatible
+* 4/2009 - Radiant 0.8 compatible
+* 2/2009 - Radiant 0.7 compatible
+* 1/2007 - Intital Import
+
+h2. Installation
+
+* add to your Gemfile:  <code>gem "radiant-language_redirect-extension"</code>
+* run bundle
+
+h2. Usage
+
+You can add a "config" part to the page which maps languages to URLs
+in the following format:
+
+<pre>
+  lang: url
+  lang: url
+  ...
+</pre>
+
+Where "lang" refers to a language code and "url" refers to the URL
+which should be redirected to based on the preferred content
+encoding of the Web browser.
+
+The following listing is a sample "config" page part:
+<pre>
+  en: /en/
+  ja: /ja/
+  *: /en/
+</pre>
+In this example, when the browser prefers English content it will be
+redirected to the "/en/" URL. When it prefers Japanese content it will
+be redirected to the "/ja/" URL. In the event that the browser prefers
+something other than English or Japanese content, they will be
+redirected to the "/en/" URL. This is what the "*" in the last entry
+does. URLs can be either relative (without "http://hostname.tld") or
+absolute (with "http://hostname.tld").
+
+If no "config" part is specified the behavior will force the page to
+redirect to the "/en/" folder.
+
+h2. Credits
+
+Created by "Giovanni Intini":http://tempe.st/about/, maintained by "contributors":https://github.com/intinig/radiant_language_redirect_extension/network 
